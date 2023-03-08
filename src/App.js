@@ -24,18 +24,44 @@ console.log(tasks)
     id={task.id} 
     name={task.name} 
     completed={task.completed} 
-    key={task.id} />
+    key={task.id} 
+    toggleTaskComplete = {toggleTaskComplete}
+    deleteTask = {deleteTask}
+    />
 ));
+
+const task_noun = taskList.length !== 1 && taskList.length !==0? "tasks" : "task" //does it not equal to 1 or 0? if yes do tasks, otherwise do task
+const task_remain = `${taskList.length} ${task_noun} remaining`
+
+const allDone = taskList.length === 0? "Good job! All done!" : undefined
+
+
+function toggleTaskComplete(id) {
+  const updatedTasks = tasks.map ((task) => {
+    if (id === task.id) {
+      return {...task, completed : !task.completed}
+    }
+    return task;
+  })
+  setTask(updatedTasks);
+}
+
+function deleteTask (id) {
+  const remaining_task = tasks.filter((task) => id !== task.id)
+  setTask(remaining_task)
+}
+
 return (
 <div className="todoapp stack-large">
   <h1>To-Do-Planner!</h1>
   <Form addTask={addTask}></Form>
-  <div className="filters btn-group stack-exception">
+  {/* <div className="filters btn-group stack-exception">
     <FilterButton></FilterButton>
     <FilterButton></FilterButton>
     <FilterButton></FilterButton>
-  </div>
-  <h2 id="list-heading">3 tasks remaining</h2>
+  </div> */}
+  <h2 id="list-heading">{task_remain}</h2>
+  <h2 id="list-heading">{allDone}</h2>
   <ul
     role="list"
     className="todo-list stack-large stack-exception"

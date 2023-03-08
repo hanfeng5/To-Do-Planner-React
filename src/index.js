@@ -4,9 +4,9 @@ import './index.css';
 import App from './App';
 
 const Data = [
-  { id: "todo-0", name: "Eat", completed: true },
+  { id: "todo-0", name: "Eat", completed: false },
   { id: "todo-1", name: "Sleep", completed: false },
-  { id: "todo-2", name: "Something else", completed: false }
+  { id: "todo-2", name: "Do Homework", completed: false }
 ];
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
