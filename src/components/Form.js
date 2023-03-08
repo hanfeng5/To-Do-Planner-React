@@ -4,7 +4,7 @@ import React, { useState } from "react";
 
 
 function Form(props) {
-    const [name, setName] = useState("");
+    const [name, setName] = useState(""); //two elemenets
 
     function handleChange(e) {
         setName(e.target.value);
@@ -13,7 +13,9 @@ function Form(props) {
     function handleSubmit(e) {
         e.preventDefault();
         alert('Okie! Added!');
-        console.log(name);
+        props.addTask(name)
+        console.log(name)
+        setName("") //good practice to reset everything
     }
   return (
     <form onSubmit={handleSubmit}>
