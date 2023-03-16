@@ -2,7 +2,7 @@
 import React, { useState } from "react"
 import "./index.css";
 import Todo from "./components/Todo"
-import FilterButton from "./components/FilterButton";
+// import FilterButton from "./components/FilterButton";
 import Form from "./components/Form"
 import { nanoid } from "nanoid"
 
@@ -30,10 +30,20 @@ console.log(tasks)
     />
 ));
 
-const task_noun = taskList.length !== 1 && taskList.length !==0? "tasks" : "task" //does it not equal to 1 or 0? if yes do tasks, otherwise do task
-const task_remain = `${taskList.length} ${task_noun} remaining`
 
-const allDone = taskList.length === 0? "Good job! All done!" : undefined
+let remaining
+// const task_noun = taskList.length !== 1 && taskList.length !==0? "tasks" : "task" //does it not equal to 1 or 0? if yes do tasks, otherwise do task
+let task_number = countComplete();
+// const task_remain = `${taskList.length} ${task_noun} remaining`
+// let task_remain = `${taskList.length} ${task_noun} remaining`
+const task_noun = task_number !== 1 && task_number !==0? "tasks" : "task" //does it not equal to 1 or 0? if yes do tasks, otherwise do task
+let task_remain = `${task_number} ${task_noun} remaining`
+
+
+
+// const allDone = taskList.length === 0? "Good job! All done!" : undefined
+const allDone = task_number === 0? "Good job! All done!" : undefined
+
 
 
 function toggleTaskComplete(id) {
@@ -41,9 +51,21 @@ function toggleTaskComplete(id) {
     if (id === task.id) {
       return {...task, completed : !task.completed}
     }
+    // console.log(remaining)
     return task;
   })
   setTask(updatedTasks);
+}
+
+function countComplete () {
+   remaining = 0;
+   tasks.forEach(task => {
+    if (!task.completed) {
+      remaining += 1
+    }
+   })
+   return remaining;
+
 }
 
 function deleteTask (id) {
