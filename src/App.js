@@ -27,6 +27,7 @@ console.log(tasks)
     key={task.id} 
     toggleTaskComplete = {toggleTaskComplete}
     deleteTask = {deleteTask}
+    editTask = {editTask}
     />
 ));
 
@@ -61,7 +62,7 @@ function countComplete () {
    remaining = 0;
    tasks.forEach(task => {
     if (!task.completed) {
-      remaining += 1
+      remaining += 1;
     }
    })
    return remaining;
@@ -69,8 +70,18 @@ function countComplete () {
 }
 
 function deleteTask (id) {
-  const remaining_task = tasks.filter((task) => id !== task.id)
-  setTask(remaining_task)
+  const remaining_task = tasks.filter((task) => id !== task.id);
+  setTask(remaining_task);
+}
+
+function editTask (id, newName) {
+  const editedTask = tasks.map((task) => {
+    if (task.id === id) {
+      return {...task, name: newName}
+    }
+    return task;
+  })
+  setTask(editedTask);
 }
 
 return (
